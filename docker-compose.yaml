@@ -1,0 +1,42 @@
+version: "3.6"
+
+services:
+  db:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - '3306:3306'
+    volumes:
+      - ./db/data:/var/lib/mysql
+
+  server:
+    build: 
+      context: ./packages/server
+      dockerfile: Dockerfile
+    image: node:16.15.0
+    volumes:
+      - ./packages/server:/app
+    working_dir: /app
+    ports:
+      - ${BACKEND_PORT}:3000
+      - 9229:9229
+    environment:
+      - NODE_ENV=development
+      - DB_HOST=${DB_HOST}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+    depends_on:
+      - db
+
+  client:
+    build: 
+      context: ./packages/client
+      dockerfile: Dockerfile
+    volumes:
+      - ./packages/client:/app
+    ports:
+      - ${FRONTEND_PORT}:${FRONTEND_PORT} 
