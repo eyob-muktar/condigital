@@ -11,10 +11,10 @@ export class FileService {
   ) {}
 
   create(createFileDto: CreateFileDto) {
-    console.log('hewlkjkljkjkj');
     return this.fileModel.create({
       name: createFileDto.name,
       size: createFileDto.size,
+      path: createFileDto.path,
       uploadedAt: createFileDto.uploadedAt,
     });
   }

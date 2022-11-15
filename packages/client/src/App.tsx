@@ -4,7 +4,7 @@ import FileTable from './components/FileTable';
 import useFileFetch from './hooks/useFileFetch';
 
 function App() {
-  const {files, loading, error} = useFileFetch()
+  const {files } = useFileFetch()
 
   return (
     <>

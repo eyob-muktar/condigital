@@ -10,4 +10,7 @@ export class File extends Model {
 
   @Column
   uploadedAt: Date;
+
+  @Column
+  path: string;
 }

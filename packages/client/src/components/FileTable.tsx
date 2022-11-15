@@ -1,4 +1,4 @@
-import { Alert, Button, Space, Table, Tag } from 'antd';
+import { Alert, Button,  Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import axios from 'axios';
 import React from 'react';
@@ -11,6 +11,7 @@ const url = 'http://localhost:4000/file'
 
 const handleDelete = (id: number) => {
   axios.delete(`${url}/${id}`).then((response) => {
+    window.location.reload();
     <Alert message={response.data} type='success' />
   })
 }
@@ -25,7 +26,7 @@ const columns: ColumnsType<IFileData> = [
     title: 'Size',
     dataIndex: 'size',
     key: 'size',
-    render: text => <>{text} MB</>
+    render: text => <>{text/1000} KB</>
   },
   {
     title: 'Uploaded Date',

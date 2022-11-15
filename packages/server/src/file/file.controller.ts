@@ -30,19 +30,18 @@ export class FileController {
     )
     file: Express.Multer.File,
   ) {
-    console.log({ file });
     const fileToSave: CreateFileDto = {
       name: file.originalname,
       size: file.size,
+      path: file.path,
       uploadedAt: new Date(),
     };
 
-    // return this.fileService.create(fileToSave);
+    return this.fileService.create(fileToSave);
   }
 
   @Get()
   findAll() {
-    console.log('here');
     return this.fileService.findAll();
   }
 
@@ -51,7 +50,7 @@ export class FileController {
     const deletedFile = await this.fileService.remove(+id);
 
     // Remove the actual file from server
-    await unlink(`upload/${deletedFile.name}`);
+    await unlink(deletedFile.path);
 
     return 'Successfully Deleted';
   }

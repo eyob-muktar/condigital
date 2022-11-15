@@ -14,6 +14,7 @@ const props: UploadProps = {
     }
     if (info.file.status === 'done') {
       message.success(`${info.file.name} file uploaded successfully`);
+      window.location.reload();
     } else if (info.file.status === 'error') {
       message.error(`${info.file.name} file upload failed.`);
     }

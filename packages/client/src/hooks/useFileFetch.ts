@@ -21,7 +21,7 @@ const useFileFetch = (): {
       method: "GET",
       url,
     })
-      .then(({ data }: IResponse) => {
+      .then(({ data: { data } }: IResponse) => {
         setFiles(data);
         setLoading(false);
       })
